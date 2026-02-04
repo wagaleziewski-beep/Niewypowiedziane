@@ -1,73 +1,635 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<title>Niewypowiedziane – Nie było już dokąd uciec</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{margin:0;font-family:Arial;background:#0e0e0e;color:#fff;line-height:1.6}
-.container{max-width:1000px;margin:auto;padding:20px}
-h1,h2,h3{color:#f5c26b}
-button{background:#f5c26b;color:#000;padding:15px 25px;border:none;font-size:18px;cursor:pointer;border-radius:5px}
-button:hover{opacity:0.85}
-.section{margin:60px 0}
-.counter{font-size:36px;font-weight:bold;color:#f5c26b}
-input{padding:12px;width:100%;margin-top:10px;font-size:16px}
-.quote{border-left:4px solid #f5c26b;padding-left:15px;margin:20px 0;font-style:italic}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Niewypowiedziane — „Nie było już dokąd uciec”</title>
+  <meta name="description" content="Psychologiczny thriller o strachu przed porzuceniem, kontroli i ciszy, która niszczy. „Nie było już dokąd uciec” — kup e-booka." />
+
+  <style>
+    :root{
+      --bg:#07080b;
+      --card:#0f1219;
+      --card2:#0b0e14;
+      --txt:#e9eefc;
+      --muted:#a7b0c7;
+      --line:rgba(255,255,255,.10);
+      --accent:#ff3b6b;
+      --accent2:#7c5cff;
+      --ok:#38d39f;
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(124,92,255,.18), transparent 60%),
+        radial-gradient(700px 400px at 80% 20%, rgba(255,59,107,.16), transparent 55%),
+        radial-gradient(700px 400px at 50% 80%, rgba(56,211,159,.10), transparent 60%),
+        var(--bg);
+      color:var(--txt);
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+    .topbar{
+      position:sticky;top:0;z-index:30;
+      backdrop-filter: blur(10px);
+      background: rgba(7,8,11,.68);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:14px;padding:14px 0;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+      text-decoration:none;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;background:var(--accent);
+      box-shadow:0 0 0 6px rgba(255,59,107,.12);
+    }
+    .brand strong{letter-spacing:.3px}
+    .nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .chip{
+      font-size:13px;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.03);
+      text-decoration:none;
+      opacity:.9;
+    }
+    .chip:hover{border-color:rgba(255,255,255,.18)}
+    .hero{
+      padding:42px 0 18px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero-grid{grid-template-columns:1fr}
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-left{
+      padding:26px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-left:before{
+      content:"";
+      position:absolute; inset:-200px -200px auto auto;
+      width:380px;height:380px;border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,59,107,.25), transparent 55%);
+      transform: rotate(10deg);
+      pointer-events:none;
+    }
+    .kicker{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--muted);
+      opacity:.95;
+    }
+    .pill{
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      padding:6px 10px;
+      background:rgba(255,255,255,.03);
+      font-size:12px;
+    }
+    h1{
+      margin:12px 0 10px;
+      font-size:44px;
+      line-height:1.06;
+      letter-spacing:-.03em;
+    }
+    @media (max-width: 520px){
+      h1{font-size:36px}
+    }
+    .subtitle{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:16px;
+      max-width:60ch;
+    }
+    .bullets{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px 14px;
+      margin:18px 0 18px;
+      padding:0;
+      list-style:none;
+    }
+    @media (max-width: 520px){
+      .bullets{grid-template-columns:1fr}
+    }
+    .bullets li{
+      display:flex;gap:10px;align-items:flex-start;
+      color:var(--txt);
+      opacity:.92;
+      font-size:14px;
+    }
+    .check{
+      width:18px;height:18px;border-radius:6px;
+      background: rgba(56,211,159,.14);
+      border:1px solid rgba(56,211,159,.30);
+      display:inline-flex;align-items:center;justify-content:center;
+      flex:0 0 auto;
+      margin-top:1px;
+    }
+    .cta-row{
+      display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+      margin-top:12px;
+    }
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:10px;
+      padding:14px 16px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);
+      text-decoration:none;
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    .btn-primary{
+      border-color: rgba(255,59,107,.40);
+      background: linear-gradient(135deg, rgba(255,59,107,.92), rgba(124,92,255,.75));
+      box-shadow: 0 20px 60px rgba(255,59,107,.18);
+    }
+    .btn-primary:hover{filter:brightness(1.05)}
+    .btn:hover{border-color:rgba(255,255,255,.22)}
+    .meta{
+      display:flex;gap:12px;flex-wrap:wrap;
+      margin-top:14px;
+      color:var(--muted);
+      font-size:13px;
+      opacity:.95;
+    }
+    .meta span{
+      padding:8px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+    }
+
+    .hero-right{
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .cover{
+      border-radius: 16px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background: #0a0c11;
+      box-shadow: 0 18px 60px rgba(0,0,0,.50);
+      aspect-ratio: 3/4;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+    .cover img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform: scale(1.01);
+    }
+    .mini{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 520px){
+      .mini{grid-template-columns:1fr}
+    }
+    .mini .box{
+      padding:14px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .mini .box b{display:block;margin-bottom:6px}
+    .mini .box p{margin:0;color:var(--muted);font-size:13px}
+
+    section{padding:26px 0}
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap:14px;
+    }
+    @media (max-width: 920px){
+      .grid-3{grid-template-columns:1fr}
+    }
+    .tile{
+      padding:18px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .tile h3{margin:0 0 8px;font-size:16px}
+    .tile p{margin:0;color:var(--muted);font-size:14px}
+
+    .section-title{
+      display:flex;align-items:flex-end;justify-content:space-between;gap:14px;
+      margin-bottom:14px;
+    }
+    .section-title h2{
+      margin:0;
+      font-size:26px;
+      letter-spacing:-.02em;
+    }
+    .section-title .hint{color:var(--muted);font-size:13px}
+
+    .quotes{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 920px){.quotes{grid-template-columns:1fr}}
+    blockquote{
+      margin:0;
+      padding:18px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      position:relative;
+      overflow:hidden;
+    }
+    blockquote:before{
+      content:"“";
+      position:absolute;left:12px;top:-6px;
+      font-size:64px;
+      color: rgba(255,255,255,.10);
+      font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+      line-height:1;
+    }
+    blockquote p{margin:0 0 10px;font-size:15px}
+    blockquote footer{color:var(--muted);font-size:13px}
+
+    .scenes{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    .scene{
+      padding:18px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .scene b{display:block;margin-bottom:8px}
+    .scene .text{color:var(--txt);opacity:.92}
+    .scene .tag{
+      display:inline-flex;gap:8px;align-items:center;
+      margin-top:10px;
+      color:var(--muted);
+      font-size:12px;
+      padding:8px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+    }
+
+    .reviews{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 920px){.reviews{grid-template-columns:1fr}}
+    .review{
+      padding:18px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .stars{letter-spacing:2px;color:rgba(255,255,255,.75);font-size:12px;margin-bottom:10px}
+    .review p{margin:0 0 12px;color:var(--txt);opacity:.92}
+    .review .who{color:var(--muted);font-size:13px}
+
+    .faq{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      overflow:hidden;
+      background: rgba(255,255,255,.02);
+    }
+    details{
+      border-top:1px solid var(--line);
+      padding:14px 16px;
+    }
+    details:first-child{border-top:none}
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:700;
+      display:flex;justify-content:space-between;align-items:center;gap:12px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .faq p{margin:10px 0 0;color:var(--muted)}
+    .badge{
+      font-size:12px;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      color:var(--muted);
+    }
+
+    .final-cta{
+      padding:26px;
+      border-radius: var(--radius);
+      border:1px solid rgba(255,59,107,.26);
+      background: radial-gradient(800px 300px at 20% 10%, rgba(255,59,107,.18), transparent 60%),
+                  radial-gradient(700px 250px at 80% 20%, rgba(124,92,255,.16), transparent 60%),
+                  rgba(255,255,255,.02);
+      text-align:center;
+      box-shadow: var(--shadow);
+    }
+    .final-cta h2{margin:0 0 10px;font-size:28px}
+    .final-cta p{margin:0 0 14px;color:var(--muted)}
+    .small{
+      font-size:12px;
+      color:var(--muted);
+      opacity:.9;
+      margin-top:12px;
+    }
+
+    .footer{
+      padding:26px 0 40px;
+      color:var(--muted);
+      font-size:13px;
+      opacity:.9;
+    }
+    .row{
+      display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+      border-top:1px solid var(--line);
+      padding-top:18px;
+    }
+    .kbd{
+      border:1px solid var(--line);
+      border-bottom-color:rgba(255,255,255,.18);
+      background:rgba(255,255,255,.03);
+      padding:4px 8px;border-radius:8px;
+      font-size:12px;
+    }
+  </style>
 </head>
 
 <body>
-<div class="container">
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <!-- "Niewypowiedziane" jako link do strony (brand) -->
+      <a class="brand" href="#top" aria-label="Niewypowiedziane">
+        <span class="dot"></span>
+        <strong>Niewypowiedziane</strong>
+      </a>
 
-<h1>Nie było już dokąd uciec</h1>
-<h3>O drodze, która zaczyna się od prawdy</h3>
+      <nav class="nav" aria-label="Nawigacja">
+        <a class="chip" href="#o-ksiazce">O książce</a>
+        <a class="chip" href="#cytaty">Cytaty</a>
+        <a class="chip" href="#sceny">Sceny</a>
+        <a class="chip" href="#recenzje">Recenzje</a>
+        <a class="chip" href="#faq">FAQ</a>
+        <a class="chip" href="#komentarze">Komentarze</a>
+      </nav>
+    </div>
+  </header>
 
-<button onclick="window.location.href='https://galeziewski.gumroad.com/l/skfof'">
-Kup e-booka
-</button>
+  <!-- HERO -->
+  <main id="top" class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="card hero-left">
+          <div class="kicker">
+            <span class="pill">thriller psychologiczny</span>
+          </div>
 
-<div class="section">
-<div class="counter">
-📈 <span id="buyers">1243</span> osób już sięgnęło po tę historię
-</div>
-</div>
+          <h1>Nie było już dokąd uciec</h1>
+          <p class="subtitle">O drodze, która zaczyna się od prawdy.</p>
 
-<div class="section">
-<h2>Dlaczego ta książka boli</h2>
-<p>Bo nie opowiada o przemocy.  
-Opowiada o strachu przed porzuceniem.  
-O mężczyźnie, który chciał kochać, ale nie wiedział jak nie niszczyć.</p>
-</div>
+          <ul class="bullets">
+            <li><span class="check">✓</span> Samotność w związku, która rośnie po cichu.</li>
+            <li><span class="check">✓</span> Strach przed porzuceniem, który zamienia się w kontrolę.</li>
+            <li><span class="check">✓</span> Miłość, która boli — zanim cokolwiek „wybuchnie”.</li>
+            <li><span class="check">✓</span> Historia, po której trudno zasnąć… bo zostaje w głowie.</li>
+          </ul>
 
-<div class="section">
-<h2>Fragmenty</h2>
-<div class="quote">„Jeśli boisz się powiedzieć prawdę, to nie dlatego, że jesteś zły. To dlatego, że jesteś przerażony.”</div>
-<div class="quote">„Miłość nie zabija. Zabija strach przed jej utratą.”</div>
-</div>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="https://galeziewski.gumroad.com/l/skfof" target="_blank" rel="noopener">
+              Kup e-booka
+              <span aria-hidden="true">→</span>
+            </a>
+            <a class="btn" href="#cytaty">Zobacz cytaty</a>
+            <a class="btn" href="#sceny">Przeczytaj sceny</a>
+          </div>
 
-<div class="section">
-<h2>📩 Dostaniesz darmowy fragment</h2>
-<p>Zostaw swój adres e-mail, a wyślę Ci fragment, który zmieni sposób patrzenia na tę historię.</p>
-<input type="email" placeholder="Twój e-mail">
-<button>Zapisz mnie</button>
-</div>
+          <div class="meta" aria-label="Szybkie info">
+            <span>✅ Dostęp od razu po zakupie</span>
+            <span>📱 Czytasz na telefonie / Kindle / komputerze</span>
+            <span>🔒 Bez abonamentu</span>
+          </div>
+        </div>
 
-<div class="section">
-<h2>Gotowy?</h2>
-<button onclick="window.location.href='https://galeziewski.gumroad.com/l/skfof'">
-Kup teraz
-</button>
-</div>
+        <aside class="card hero-right">
+          <div class="cover" aria-label="Okładka książki">
+            <!-- UPEWNIJ SIĘ, że plik w repozytorium nazywa się dokładnie: cover.jpg -->
+            <img src="cover.jpg" alt="Okładka: Nie było już dokąd uciec" />
+          </div>
 
-</div>
+          <div class="mini">
+            <div class="box">
+              <b>O czym to jest?</b>
+              <p>O mężczyźnie, który kocha… ale nie umie przestać się bać.</p>
+            </div>
+            <div class="box">
+              <b>Dla kogo?</b>
+              <p>Dla tych, którzy żyją w napięciu w relacji i czują, że to „idzie w złą stronę”.</p>
+            </div>
+          </div>
 
-<script>
-let count = localStorage.getItem("buyers") || 1243;
-count = parseInt(count) + Math.floor(Math.random()*3);
-localStorage.setItem("buyers", count);
-document.getElementById("buyers").innerText = count;
-</script>
+          <!-- Licznik odwiedzin -->
+          <div class="box" style="border-radius:16px">
+            <b>👁️ Odwiedziny</b>
+            <p><span id="visitCount">…</span> osób było już na tej stronie</p>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-</body>
-</html>
+    <!-- O książce -->
+    <section id="o-ksiazce">
+      <div class="section-title">
+        <h2>To nie jest historia o „złych ludziach”</h2>
+        <div class="hint">To historia o strachu, ciszy i tym, jak miłość potrafi się wypaczyć.</div>
+      </div>
+
+      <div class="grid-3">
+        <div class="tile">
+          <h3>Rdzeń emocjonalny</h3>
+          <p>Chorobliwa zazdrość nie zawsze zaczyna się od krzyku. Czasem zaczyna się od milczenia i „tylko jednego sprawdzenia”.</p>
+        </div>
+        <div class="tile">
+          <h3>Stawka</h3>
+          <p>Im bardziej Michał kocha Annę — tym bardziej boi się ją stracić. A strach potrafi przejąć ster.</p>
+        </div>
+        <div class="tile">
+          <h3>Ton</h3>
+          <p>Mrocznie, surowo, bez upiększeń. Tylko prawda — taka, której zwykle się nie mówi na głos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cytaty -->
+    <section id="cytaty">
+      <div class="section-title">
+        <h2>Cytaty, które zostają w głowie</h2>
+        <div class="hint">To nie są ładne cytaty. To są zdania, które trafiają w czułe miejsca.</div>
+      </div>
+
+      <div class="quotes">
+        <blockquote>
+          <p>„Jeśli boisz się powiedzieć prawdę, bo boisz się, że odejdzie — nie jesteś zły. Jesteś przerażony.”</p>
+          <footer>— z książki</footer>
+        </blockquote>
+
+        <blockquote>
+          <p>„Kontrola to nie siła. To strach w przebraniu.”</p>
+          <footer>— z książki</footer>
+        </blockquote>
+
+        <blockquote>
+          <p>„Najgorzej boli nie to, że odejdzie. Tylko że może już dawno odeszła — a ty jeszcze udajesz.”</p>
+          <footer>— z książki</footer>
+        </blockquote>
+
+        <blockquote>
+          <p>„Miłość nie zniknęła. Ona po prostu zaczęła gnić.”</p>
+          <footer>— z książki</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- Sceny -->
+    <section id="sceny">
+      <div class="section-title">
+        <h2>Sceny</h2>
+        <div class="hint">To tylko fragmenty. Reszta dzieje się między wierszami.</div>
+      </div>
+
+      <div class="scenes">
+        <div class="scene">
+          <b>Scena 1 — Cisza</b>
+          <div class="text">
+            Anna milczy dłużej niż zwykle.<br>
+            Michał czuje, jak w brzuchu rośnie mu zimno.<br>
+            Nie pyta. Nie chce wyjść na słabego.<br>
+            Zamiast tego… szuka dowodu, że „na pewno coś jest”.
+          </div>
+          <div class="tag">⚠️ napięcie • domysły • pierwszy krok w przepaść</div>
+        </div>
+
+        <div class="scene">
+          <b>Scena 2 — Pytanie, którego nikt nie chce usłyszeć</b>
+          <div class="text">
+            — Kochasz mnie?<br>
+            — Tak.<br>
+            — To dlaczego się mnie boisz?
+          </div>
+          <div class="tag">🖤 miłość • strach • prawda bez filtra</div>
+        </div>
+
+        <div class="scene">
+          <b>Scena 3 — Przekroczenie</b>
+          <div class="text">
+            Nie krzyczał.<br>
+            To było gorsze.<br>
+            Patrzył na nią tak, jakby już ją stracił — i chciał, żeby ona poczuła to samo.
+          </div>
+          <div class="tag">🔥 kontrola • emocjonalny szantaż • „tylko żeby nie odeszła”</div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap">
+        <a class="btn btn-primary" href="https://galeziewski.gumroad.com/l/skfof" target="_blank" rel="noopener">Kup e-booka →</a>
+      </div>
+    </section>
+
+    <!-- Recenzje -->
+    <section id="recenzje">
+      <div class="section-title">
+        <h2>Co mówią czytelnicy</h2>
+<div class="hint">Ta książka nie zostawia ludzi obojętnych</div>
+      </div>
+
+      <div class="reviews">
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>„Czytałem w nocy i miałem wrażenie, że ktoś opisuje rzeczy, o których się nie mówi. Bardzo mocne.”</p>
+          <div class="who">— Czytelnik (anonim)</div>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>„To nie jest romans. To jest lustro. I nie każdy będzie miał odwagę w nie spojrzeć.”</p>
+          <div class="who">— Czytelniczka (anonim)</div>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>„Najbardziej przeraża to, że to wszystko zaczyna się niewinnie. A potem… jest już za późno.”</p>
+          <div class="who">— Czytelnik (anonim)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="section-title">
+        <h2>FAQ</h2>
+        <div class="hint">Najczęstsze pytania przed zakupem.</div>
+      </div>
+
+      <div class="faq">
+        <details open>
+          <summary>
+            Co dostaję po zakupie?
+            <span class="badge">e-book</span>
+          </summary>
+          <p>Po zakupie dostajesz plik (lub pliki) do pobrania i czytasz od razu — na telefonie, komputerze lub czytniku.</p>
+        </details>
+
+        <details>
+          <summary>
+            Czy to jest historia o przemocy?
+            <span class="badge">nie</span>
+          </summary>
+          <p>To jest historia o strachu przed porzuceniem i o tym, jak miłość potrafi zamienić się w kontrolę, ciszę i ból — zanim ktokolwiek nazwie to „przemocą”.</p>
+        </details>
+
+        <details>
+          <summary>
+            Dla kogo jest ta książka?
+            <span class="badge">mocne emocje</span>
+          </summary>
+          <p>Dla osób, które czują napięcie w relacji, boją się utraty, mają trudność z rozmową i znają smak „niewypowiedzianych rzeczy”.</p>
+        </details>
+
+        <details>
+          <summary>
+            Gdzie kupić?
+            <span class="badge">Gumroad</span>
+          </summary>
+          <p>Najprościej kliknąć „Kup e-booka” — przejdziesz do pł
